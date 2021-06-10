@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import * as DATA from './constants';
 import './App.css';
+import { Footer } from './components/Footer';
 
 const fetchApi = async (Url, idElement) => {
   try {
@@ -11,11 +12,20 @@ const fetchApi = async (Url, idElement) => {
 
     data.map((user) => {
       return (idElement.innerHTML += `
-        <div key=${user.id}>
-          <h1>User ${user.id}</h1>
-          <h3>Name: ${user.name}</h3>
-          <h4>Email: ${user.email}</h4>
-          <h5>City: ${user.address.city}</h5>
+        <div key=${
+          user.id
+        } class="card" style="border-radius: 15px; width: 20rem; background: #12123D; color: #D4AA00; margin-top: 40px;">
+          <img class="card-img-top" src=${
+            DATA.URL_AVATAR + user.name
+          } style="filter: drop-shadow(0px 0px 10px #D4AA00)"/>
+          <div class="card-body" style="margin-top: 10px">
+            <h4 class="card-title">${user.name}</h4>
+            <h4 class="card-text">${user.email}</h4>
+            <h5 class="text-muted">${user.address.city}</h5>
+            <div class="card-footer">
+              <button class="btn btn-warning">Me gusta</button>
+            </div>
+          </div>
         </div>
         <hr />
       `);
@@ -33,8 +43,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>React App</h1>
-      <div className="user" id="users"></div>
+      <h1 style={{ background: '#12123D', padding: '20px', color: '#D4AA00' }}>
+        Face Users App
+      </h1>
+      <div className="card-columns" id="users"></div>
+      <Footer />
     </div>
   );
 };
